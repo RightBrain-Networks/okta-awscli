@@ -7,7 +7,7 @@ from collections import namedtuple
 from configparser import RawConfigParser
 import boto3
 from botocore.exceptions import ClientError
-
+from six.moves import input
 
 class AwsAuth(object):
     """ Methods to support AWS authentication using STS """
@@ -47,7 +47,7 @@ class AwsAuth(object):
         for option in role_options:
             print(option)
 
-        role_choice = input('Please select the AWS role: ') - 1
+        role_choice = int(input('Please select the AWS role: ')) - 1
         return roles[role_choice]
 
     @staticmethod
@@ -145,7 +145,7 @@ class AwsAuth(object):
         return options
 
     def __find_predefiend_role_from(self, roles):
-        found_roles = filter(lambda role_tuple: role_tuple.role_arn == self.role, roles)
+        found_roles = list(filter(lambda role_tuple: role_tuple.role_arn == self.role, roles))
         if (len(found_roles) == 0) :
             return None
         else:

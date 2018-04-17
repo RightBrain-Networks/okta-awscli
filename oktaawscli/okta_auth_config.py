@@ -2,6 +2,7 @@ import os
 
 from configparser import RawConfigParser
 from getpass import getpass
+from six.moves import input
 
 
 class OktaAuthConfig(object):
@@ -25,7 +26,7 @@ class OktaAuthConfig(object):
             username = self._value.get(okta_profile, 'username')
             self.logger.info("Authenticating as: %s" % username)
         else:
-            username = raw_input('Enter username: ')
+            username = input('Enter username: ')
         return username
 
     def password_for(self, okta_profile):
