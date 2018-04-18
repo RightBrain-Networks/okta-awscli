@@ -178,10 +178,12 @@ class OktaAuth(object):
 
     def get_saml_assertion(self, html):
         """ Returns the SAML assertion from HTML """
+        print(html)
         soup = bs(html.text, "html.parser")
         assertion = ''
 
         for input_tag in soup.find_all('input'):
+            print(input_tag.get('name'))
             if input_tag.get('name') == 'SAMLResponse':
                 assertion = input_tag.get('value')
 
